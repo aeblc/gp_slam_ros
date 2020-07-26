@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/yesua/catkin_ws/build/gp_reg",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"gp_reg\\\" -Dgp_reg_EXPORTS -I/home/yesua/catkin_ws/src/gp_reg/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3  -fPIC   -std=c++11 -O3 -o CMakeFiles/gp_reg.dir/include/gp_reg/GpRegNode.cpp.o -c /home/yesua/catkin_ws/src/gp_reg/include/gp_reg/GpRegNode.cpp",
+  "file": "/home/yesua/catkin_ws/src/gp_reg/include/gp_reg/GpRegNode.cpp"
+},
+{
+  "directory": "/home/yesua/catkin_ws/build/gp_reg",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"gp_reg\\\" -I/home/yesua/catkin_ws/src/gp_reg/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -isystem /usr/include/eigen3    -std=c++11 -O3 -o CMakeFiles/gp_reg_node.dir/src/main.cpp.o -c /home/yesua/catkin_ws/src/gp_reg/src/main.cpp",
+  "file": "/home/yesua/catkin_ws/src/gp_reg/src/main.cpp"
+}
+]
