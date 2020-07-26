@@ -4,6 +4,9 @@
 #include<ros/ros.h>
 #include<sensor_msgs/LaserScan.h>
 #include<Eigen/Dense>
+#include<matplotlib-cpp/matplotlibcpp.h>
+
+namespace plt =  matplotlibcpp;
 
 class GpRegNode
 {
@@ -20,6 +23,7 @@ private:
     ros::Subscriber sub_;
     std::string sub_topic_;
     bool draw_;
+
 };
 
 

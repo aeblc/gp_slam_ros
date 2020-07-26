@@ -17,6 +17,8 @@ project(gp_reg)
                COPYONLY
 )
 
+
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -30,7 +32,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 #  find_package(Boost REQUIRED COMPONENTS system)
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-
+find_package(PythonLibs 3.7)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -120,7 +122,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES gp_reg
   CATKIN_DEPENDS geometry_msgs roscpp sensor_msgs std_msgs
-  DEPENDS Eigen3
+  DEPENDS Eigen3 PythonLibs
 )
 
 ###########
@@ -131,8 +133,10 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include
+  vendor
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
+  ${PYTHON_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -168,8 +172,8 @@ include_directories(
    ${PROJECT_NAME}
    ${catkin_LIBRARIES}
    Eigen3::Eigen
+   ${PYTHON_LIBRARIES}
  )
-
 #############
 ## Install ##
 #############

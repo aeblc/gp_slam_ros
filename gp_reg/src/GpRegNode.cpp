@@ -12,7 +12,11 @@ GpRegNode::GpRegNode() {
 void GpRegNode::gpRegression(){
 
 };
-void GpRegNode::drawRegression(){};
+void GpRegNode::drawRegression(){
+    plt::plot({1,3,2,4});
+    plt::show();
+    plt::save("fig.png");
+};
 
 void GpRegNode::subCallback (const sensor_msgs::LaserScanConstPtr& scan){
     this->raw_scan_ = *scan;
