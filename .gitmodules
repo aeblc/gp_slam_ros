@@ -1,3 +1,6 @@
 [submodule "gp_reg/vendor"]
 	path = gp_reg/vendor
 	url = https://github.com/lava/matplotlib-cpp.git
+[submodule "gp_reg/vendor/matplotlib-cpp"]
+	path = gp_reg/vendor/matplotlib-cpp
+	url = https://github.com/lava/matplotlib-cpp.git
