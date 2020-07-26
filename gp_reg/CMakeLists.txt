@@ -138,7 +138,7 @@ include_directories(
 ## Declare a C++ library
  add_library(${PROJECT_NAME}
      include/gp_reg/GpRegNode.h
-     include/gp_reg/GpRegNode.cpp
+     src/GpRegNode.cpp
  )
 
 ## Add cmake target dependencies of the library

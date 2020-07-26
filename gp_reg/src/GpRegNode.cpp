@@ -14,7 +14,7 @@ void GpRegNode::gpRegression(){
 };
 void GpRegNode::drawRegression(){};
 
-void (GpRegNode::subCallback)(const sensor_msgs::LaserScanConstPtr& scan){
+void GpRegNode::subCallback (const sensor_msgs::LaserScanConstPtr& scan){
     this->raw_scan_ = *scan;
     gpRegression();
 
