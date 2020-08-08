@@ -6,18 +6,6 @@ project(gp_reg)
 
 # YCM config
  SET( CMAKE_EXPORT_COMPILE_COMMANDS ON )
- configure_file(
-               ${CMAKE_BINARY_DIR}/compile_commands.json 
-               ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json 
-               COPYONLY
-)
- configure_file(
-               ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json 
-               ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json 
-               COPYONLY
-)
-
-
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)

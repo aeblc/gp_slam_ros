@@ -17,7 +17,8 @@ public:
     void subCallback(const sensor_msgs::LaserScanConstPtr& scan);
 private:
     sensor_msgs::LaserScan raw_scan_;
-    Eigen::Matrix2Xd r_theta_;
+    Eigen::MatrixXd r_theta_;
+    double t;
 
     ros::NodeHandle n_;
     ros::Subscriber sub_;
