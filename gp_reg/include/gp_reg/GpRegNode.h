@@ -18,13 +18,23 @@ public:
 private:
     sensor_msgs::LaserScan raw_scan_;
     Eigen::MatrixXd r_theta_;
+    Eigen::MatrixXd downsampled_data_;
+    Eigen::VectorXd estimation_interval_;
+    Eigen::VectorXd posterior_mean_;
+    Eigen::MatrixXd posterior_covariance_;
     double t;
 
     ros::NodeHandle n_;
     ros::Subscriber sub_;
     std::string sub_topic_;
     bool draw_;
+    int downsampled_data_size_;
+    double observation_noise_;
 
+    // Hyper-parameters
+    
+    double length_scale_;
+    double signal_variance_;
 };
 
 

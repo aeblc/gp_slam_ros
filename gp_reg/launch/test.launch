@@ -3,5 +3,12 @@
         <param name="sub_topic" type="string" value="scan" />
         <param name="draw" type="bool" value="true" />
         <param name="frequency" type="double" value="10.0" />
+
+        <!-- Regression parameters  -->
+        <param name="downsampled_data_size" type="int" value="40" />
+        <param name="length_scale" type="double" value="0.08" />
+        <param name="signal_variance" type="double" value="1.0" />
+        <param name="observation_noise" type="double" value="1.0" />
+        
     </node>
 </launch>
