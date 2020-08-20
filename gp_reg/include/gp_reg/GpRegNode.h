@@ -29,6 +29,7 @@ private:
     std::string sub_topic_;
     bool draw_;
     int downsampled_data_size_;
+    int estimation_data_size_;
     double observation_noise_;
 
     // Hyper-parameters

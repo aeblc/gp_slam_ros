@@ -5,17 +5,20 @@ GpRegNode::GpRegNode() {
     n_.getParam("/gp_reg_node/sub_topic",sub_topic_);
     n_.getParam("/gp_reg_node/draw", draw_);
     n_.getParam("/gp_reg_node/downsampled_data_size", downsampled_data_size_);
+    n_.getParam("/gp_reg_node/estimation_data_size", estimation_data_size_);
 
     n_.getParam("/gp_reg_node/length_scale", length_scale_);
     n_.getParam("/gp_reg_node/signal_variance", signal_variance_);
     n_.getParam("/gp_reg_node/observation_noise_", observation_noise_);
-    ROS_INFO("%d", downsampled_data_size_);
+
+
+
+    ROS_INFO("Estimating LaserScan data with %d points !!", downsampled_data_size_);
 
     sub_ = n_.subscribe(sub_topic_, 10, &GpRegNode::subCallback, this);
 
 
-    ros::spin();
-
+    // spin is in main!!
 };
 
 
@@ -55,27 +58,24 @@ void GpRegNode::gpRegression(){
 
     }
 
-//       downsampled_data_(downsampled_data_size_ - 1, 0) = r_theta_(r_theta_.col(0).size() - 1, 0); //ranges
-//       downsampled_data_(downsampled_data_size_ - 1, 1) = r_theta_(r_theta_.col(0).size() - 1, 1); //angles
-
     // estimation interval (-pi, pi)
-    estimation_interval_ =  Eigen::VectorXd::LinSpaced(1000, -1 * M_PI, M_PI );
+    estimation_interval_ =  Eigen::VectorXd::LinSpaced(estimation_data_size_, -1 * M_PI, M_PI );
 
     // calculate covariance matrices
     Eigen::MatrixXd K(downsampled_data_size_, downsampled_data_size_);
-    Eigen::MatrixXd K_star(1000, downsampled_data_size_);
-    Eigen::MatrixXd K_star_star(1000,1000);
+    Eigen::MatrixXd K_star(estimation_data_size_, downsampled_data_size_);
+    Eigen::MatrixXd K_star_star(estimation_data_size_, estimation_data_size_);
 
     for(int i = 0; i < downsampled_data_size_; ++i)
         for(int j = 0; j < downsampled_data_size_; ++j )
             K(i,j) = kernelFunction(downsampled_data_(i,1), downsampled_data_(j,1), length_scale_ , signal_variance_);
 
-    for(int i = 0; i < 1000; ++i)
+    for(int i = 0; i < estimation_data_size_; ++i)
         for(int j = 0; j < downsampled_data_size_; ++j )
             K_star(i,j) = kernelFunction(estimation_interval_(i), downsampled_data_(j, 1), length_scale_, signal_variance_);
 
-     for(int i = 0; i < 1000; ++i)
-        for(int j = 0; j < 1000; ++j )
+     for(int i = 0; i < estimation_data_size_; ++i)
+        for(int j = 0; j < estimation_data_size_; ++j )
             K_star_star(i,j) = kernelFunction(estimation_interval_(i), estimation_interval_(j), length_scale_, signal_variance_);
    
 
@@ -95,22 +95,21 @@ void GpRegNode::drawRegression(){
     Eigen::MatrixXd b1 = r_theta_.col(1);
     std::vector<double> veca1(a1.data(), a1.data() + a1.size());
     std::vector<double> vecb1(b1.data(), b1.data() + b1.size());
-    plt::plot(vecb1,veca1, "r");
+    plt::plot(vecb1, veca1, {{"color", "red"} ,{"label", "raw_data"}});
+
     Eigen::MatrixXd a2 = posterior_mean_;
     Eigen::MatrixXd b2 = estimation_interval_; 
     std::vector<double> veca2(a2.data(), a2.data() + a2.size());
     std::vector<double> vecb2(b2.data(), b2.data() + b2.size());
-    plt::plot(vecb2,veca2, "--b");
-    //Eigen::MatrixXd a3 = downsampled_data_.row(0);
-    //Eigen::MatrixXd b3 = downsampled_data_.row(1); 
-    //std::vector<double> veca3(a3.data(), a3.data() + a3.size());
-    //std::vector<double> vecb3(b3.data(), b3.data() + b3.size());
-    //plt::scatter(vecb3,veca3);
+    plt::plot(vecb2, veca2, {{"color", "blue"}, {"linestyle", "--"}, {"label", "estimation"}});
+    plt::legend();
+
     plt::grid(true);
+    plt::xlabel("Angles (rad)");
+    plt::ylabel("Ranges (m)");
     plt::show();
-    plt::pause(0.5);
+    plt::pause(0.1);
     plt::clf();
-    //plt::save("fig.png");
 };
 
 void GpRegNode::subCallback (const sensor_msgs::LaserScanConstPtr& scan){
