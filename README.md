@@ -8,6 +8,6 @@ Implemented so far:
 - GP regression algorithm
 
 
-Some third party packages included, so use,
-'git clone --recurse-submodules https://github.com/aeblc/gp_slam_ros'
+Some third party packages included, so use, 
+`git clone --recurse-submodules https://github.com/aeblc/gp_slam_ros`
 to download.
